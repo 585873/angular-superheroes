@@ -1,12 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="superhero">
 <head>
   <meta charset="UTF-8">
   <title>Superhero Phone Book</title>
   <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
   <script src="app.js"></script>
+</head>
+<body ng-controller="superheroCtrl as vm">
+  <h2> Comic Superheores </h2>
+   <input type="text" ng-model="search" placeholder="Search" />
+    <div class={{superhero.comic_affiliation}} ng-repeat="superhero in vm.superhero | filter: search">
+      <img ng-src='{{superhero.photo_url}}' ng-show="vm.viewImage[$index]"/>
+      <p>{{ $index + 1 }}.{{ superhero.name }} - {{ superhero.phone_number }}</p>
+      <button ng-click="vm.viewImage[$index] = !vm.viewImage[$index]">View Picture</button>
+    </div>
+    <div>
+      <input type="text" name="name" ng-model="vm.newSuperheroName">
+      <input type="text" name="phone_number" ng-model="vm.newSuperheroPhone_number">
+      <input type="text" name="comic_affiliation" ng-model="vm.newSuperheroComic_affiliation">
+      <input type="text" name="photo_url" ng-model="vm.newSuperheroPhoto_url">
+      <button ng-click="vm.addSuperhero()">Add Superhero </button>
+      <p>User Input: {{vm.newSuperheroName}}</p>
+
+    </div>
 </body>
 </html>
